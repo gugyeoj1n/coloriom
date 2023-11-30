@@ -10,11 +10,16 @@ using UnityEngine.EventSystems;
 public class TitleUIManager : MonoBehaviour
 {
     public Image fadePanel;
+    public GameObject audioOnOff;
     
     void Start()
     {
     }
-    
+
+    public void SetAudioOnOff(bool target)
+    {
+        audioOnOff.SetActive(target);
+    }
 
     public void StartGame()
     {
