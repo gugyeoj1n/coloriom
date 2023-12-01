@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public float time = 121f;
     public bool isGaming = true;
+    public GameObject[,] objects;
     [Header ("UI")]
     public TMP_Text multiplyText;
     public TMP_Text scoreText;
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     private void InitMold()
     {
+        objects = new GameObject[7, 7];
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
@@ -68,6 +70,8 @@ public class GameManager : MonoBehaviour
                         colorInst.GetComponent<ColorObject>().type = ColorObject.OutlineType.Right;
                 } else
                     colorInst.GetComponent<ColorObject>().type = ColorObject.OutlineType.Inside;
+
+                objects[i, j] = colorInst;
             }
         }
         /*for (int i = 0; i < 49; i++)
