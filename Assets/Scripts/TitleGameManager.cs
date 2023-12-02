@@ -7,8 +7,10 @@ public class TitleGameManager : MonoBehaviour
     private TitleUIManager ui;
     
     public int timeItem;
-    public int colorItem;
+    public int passItem;
     public int advertisePass;
+    public int coin;
+    public int bestScore;
     public bool audio;
     
     void Awake()
@@ -45,9 +47,57 @@ public class TitleGameManager : MonoBehaviour
 
     public void LoadItems()
     {
-        timeItem = PlayerPrefs.HasKey("TimeItem") ? PlayerPrefs.GetInt("TimeItem") : 0;
-        colorItem = PlayerPrefs.HasKey("ColorItem") ? PlayerPrefs.GetInt("ColorItem") : 0;
-        advertisePass = PlayerPrefs.HasKey("AdvertisePass") ? PlayerPrefs.GetInt("AdvertisePass") : 0;
+        if (PlayerPrefs.HasKey("TimeItem"))
+        {
+            timeItem = PlayerPrefs.GetInt("TimeItem");
+        }
+        else
+        {
+            timeItem = 0;
+            PlayerPrefs.SetInt("TimeItem", 0);
+        }
+
+        if (PlayerPrefs.HasKey("PassItem"))
+        {
+            passItem = PlayerPrefs.GetInt("PassItem");
+        }
+        else
+        {
+            passItem = 0;
+            PlayerPrefs.SetInt("PassItem", 0);
+        }
+
+        if (PlayerPrefs.HasKey("AdvertisePass"))
+        {
+            advertisePass = PlayerPrefs.GetInt("AdvertisePass");
+        }
+        else
+        {
+            advertisePass = 0;
+            PlayerPrefs.SetInt("AdvertisePass", 0);
+        }
+        
+        if (PlayerPrefs.HasKey("Coin"))
+        {
+            coin = PlayerPrefs.GetInt("Coin");
+        }
+        else
+        {
+            coin = 3000;
+            PlayerPrefs.SetInt("Coin", 3000);
+        }
+        
+        if (PlayerPrefs.HasKey("BestScore"))
+        {
+            bestScore = PlayerPrefs.GetInt("BestScore");
+        }
+        else
+        {
+            bestScore = 0;
+            PlayerPrefs.SetInt("BestScore", 0);
+        }
+        
+        ui.bestScoreText.text = bestScore.ToString();
     }
 
     public void SetAudio()
@@ -75,5 +125,25 @@ public class TitleGameManager : MonoBehaviour
         {
             audio.volume = target ? 1 : 0;
         }
+    }
+
+    public void PurchaseTime()
+    {
+        if (PlayerPrefs.GetInt("Coin") < 1000) return;
+        
+        PlayerPrefs.SetInt("TimeItem", PlayerPrefs.GetInt("TimeItem") + 1);
+        PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") - 1000);
+        
+        ui.RefreshShop();
+    }
+    
+    public void PurchasePass()
+    {
+        if (PlayerPrefs.GetInt("Coin") < 800) return;
+        
+        PlayerPrefs.SetInt("PassItem", PlayerPrefs.GetInt("PassItem") + 1);
+        PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") - 800);
+        
+        ui.RefreshShop();
     }
 }
