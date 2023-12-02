@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text timeCount;
     public TMP_Text passCount;
     public GameObject audioOff;
+    public GameObject combinationPanel;
+    public Transform combinationContent;
+    public GameObject combinationObject;
     [Header ("Audio")]
     private AudioSource audio;
     public AudioClip[] clips;
@@ -56,6 +59,7 @@ public class GameManager : MonoBehaviour
         InitMold();
         inputManager = new InputManager();
         GenerateTarget();
+        GenerateCombinations();
         InitItems();
     }
 
@@ -215,6 +219,7 @@ public class GameManager : MonoBehaviour
         PlayAudio(clips[1]);
         timeText.text = "0:00";
         overScoreText.text = score.ToString() + "점";
+        combinationPanel.SetActive(false);
         PlayerPrefs.SetInt("BestScore", score);
         PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + 1000);
 
@@ -475,6 +480,24 @@ public class GameManager : MonoBehaviour
         foreach (AudioSource audio in audios)
         {
             audio.volume = target ? 1 : 0;
+        }
+    }
+
+    public void GenerateCombinations()
+    {
+        for (int i = 0; i < colors.Length; i++)
+        {
+            for (int j = i; j < colors.Length; j++)
+            {
+                GameObject combination = Instantiate(combinationObject, combinationContent);
+                Image start = combination.transform.GetChild(0).GetComponent<Image>();
+                Image end = combination.transform.GetChild(1).GetComponent<Image>();
+                Image mixed = combination.transform.GetChild(2).GetComponent<Image>();
+
+                start.color = colors[i];
+                end.color = colors[j];
+                mixed.color = MixColor(start.color, end.color);
+            }
         }
     }
 }
