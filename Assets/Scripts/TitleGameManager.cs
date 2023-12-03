@@ -10,7 +10,8 @@ public class TitleGameManager : MonoBehaviour
     public int passItem;
     public int advertisePass;
     public int coin;
-    public int bestScore;
+    public int normalBestScore;
+    public int challengeBestScore;
     public bool audio;
     
     void Awake()
@@ -87,17 +88,27 @@ public class TitleGameManager : MonoBehaviour
             PlayerPrefs.SetInt("Coin", 3000);
         }
         
-        if (PlayerPrefs.HasKey("BestScore"))
+        if (PlayerPrefs.HasKey("NormalBestScore"))
         {
-            bestScore = PlayerPrefs.GetInt("BestScore");
+            normalBestScore = PlayerPrefs.GetInt("NormalBestScore");
         }
         else
         {
-            bestScore = 0;
-            PlayerPrefs.SetInt("BestScore", 0);
+            normalBestScore = 0;
+            PlayerPrefs.SetInt("NormalBestScore", 0);
         }
         
-        ui.bestScoreText.text = bestScore.ToString();
+        if (PlayerPrefs.HasKey("ChallengeBestScore"))
+        {
+            challengeBestScore = PlayerPrefs.GetInt("ChallengeBestScore");
+        }
+        else
+        {
+            challengeBestScore = 0;
+            PlayerPrefs.SetInt("ChallengeBestScore", 0);
+        }
+
+        ui.bestScoreText.text = string.Format("일반 {0}점\n도전 {1}점", normalBestScore, challengeBestScore);
     }
 
     public void SetAudio()

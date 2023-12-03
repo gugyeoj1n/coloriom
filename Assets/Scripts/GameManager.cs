@@ -220,8 +220,9 @@ public class GameManager : MonoBehaviour
         timeText.text = "0:00";
         overScoreText.text = score.ToString() + "점";
         combinationPanel.SetActive(false);
-        PlayerPrefs.SetInt("BestScore", score);
-        PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + 1000);
+        if(PlayerPrefs.GetInt("NormalBestScore") < score)
+            PlayerPrefs.SetInt("NormalBestScore", score);
+        PlayerPrefs.SetInt("Coin", PlayerPrefs.GetInt("Coin") + score);
 
         overBackground.SetActive(true);
         overPanel.SetActive(true);
