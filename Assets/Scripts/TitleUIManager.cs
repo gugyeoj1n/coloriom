@@ -60,4 +60,12 @@ public class TitleUIManager : MonoBehaviour
         seq.Append(fadePanel.DOFade(1f, 1));
         seq.InsertCallback(1, () => SceneManager.LoadScene(2));
     }
+
+    public void StartTutorial()
+    {
+        fadePanel.gameObject.SetActive(true);
+        var seq = DOTween.Sequence();
+        seq.Append(fadePanel.DOFade(1f, 1));
+        seq.InsertCallback(1, () => SceneManager.LoadScene(3));
+    }
 }
