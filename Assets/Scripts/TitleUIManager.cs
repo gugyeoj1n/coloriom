@@ -19,6 +19,8 @@ public class TitleUIManager : MonoBehaviour
     public TMP_Text currentTimeText;
     public TMP_Text currentPassText;
     public TMP_Text currentAdText;
+    public TMP_Text currentVersionText;
+    public GameObject updatePanel;
     
     void Start()
     {
@@ -67,5 +69,10 @@ public class TitleUIManager : MonoBehaviour
         var seq = DOTween.Sequence();
         seq.Append(fadePanel.DOFade(1f, 1));
         seq.InsertCallback(1, () => SceneManager.LoadScene(3));
+    }
+
+    public void OpenUpdate()
+    {
+        updatePanel.SetActive(true);
     }
 }

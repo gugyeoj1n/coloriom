@@ -38,6 +38,6 @@ public class BannerAdvertisement : MonoBehaviour
     private void CreateBannerView()
     {
         // if(banner != null)
-        banner = new BannerView(ad_unit_id, AdSize.Banner, AdPosition.Bottom);
+        banner = new BannerView(ad_unit_id, AdSize.Banner, AdPosition.Top);
     }
 }
